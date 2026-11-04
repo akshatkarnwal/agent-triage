@@ -15,31 +15,46 @@ REPORT_PROMPT = """You are writing a root-cause report for a SIEM alert investig
 
 Alert: {alert_context}
 
-Evidence gathered ({num_iterations} investigation steps):
+Evidence gathered ({num_iterations} investigation steps). A suffix "N identical or near-identical events (differing only in long numbers)" means
+N identical events occurred between the two timestamps shown:
 {evidence}
 
-Confidence score: {confidence}
+Self-reported confidence from the investigation step: {confidence}
 
-Write the report in two clearly separated parts:
+Write the report in these parts, using these exact headings:
 
 ## Evidence-Based Findings
 State ONLY facts directly present in the evidence above (timestamps, hosts,
 IPs, users, event counts/patterns). Every sentence here should be traceable
 to a specific log line. No speculation, no inferred causes, no
-recommendations — just what the evidence literally shows.
+recommendations; just what the evidence literally shows.
 
 ## Analysis & Recommendations
 This is where you interpret the findings: propose a root cause hypothesis,
-explain your reasoning, and give remediation steps. Be clear this section
-is analyst interpretation built on the evidence above, not a direct
-restatement of it — reasonable inference is expected and valuable here.
+explain your reasoning, and give remediation steps. This section is analyst
+interpretation built on the evidence above, not a restatement of it.
+Your reasoning must:
+- weigh at least one benign explanation and one malicious explanation, and say
+  which the evidence favours and why;
+- use volume and rate (a handful of failures over minutes is typical of a
+  person; dozens within minutes is automated);
+- note whether the source is internal (10.x, 172.16-31.x, 192.168.x) or
+  external, and whether the evidence shows earlier history for it;
+- say plainly when a key fact is missing, instead of assuming it.
+
+## Verdict: <exactly one label>
+Choose the single label that best fits, and put it on this heading line:
+- compromise_confirmed: malicious activity that succeeded
+- attack_attempt_failed: malicious activity with no evidence it succeeded
+- benign_activity: a routine or benign explanation fits better
+- undetermined: the evidence is not sufficient to decide
 
 ## Confidence: {confidence}
 """
 
 
 def report_node(state: AgentState) -> dict:
-    evidence = "\n".join(state["retrieved_evidence"]) or "(no evidence gathered)"
+    evidence = "\n".join(dict.fromkeys(state["retrieved_evidence"])) or "(no evidence gathered)"
     prompt = REPORT_PROMPT.format(
         alert_context=state["alert_context"],
         num_iterations=state["iteration_count"],

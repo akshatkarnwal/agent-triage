@@ -1,0 +1,43 @@
+[
+  {
+    "id": "inc-003",
+    "iterations": 4,
+    "tool_calls": [
+      {
+        "tool": "search_logs",
+        "params": {
+          "query": "activity by user jdoe on finance-ws-07",
+          "time_window_minutes": 30
+        },
+        "result": "15 log lines retrieved",
+        "iteration": 1
+      },
+      {
+        "tool": "search_logs",
+        "params": {
+          "query": "user jdoe added to local Administrators group on finance-ws-07"
+        },
+        "result": "15 log lines retrieved",
+        "iteration": 2
+      },
+      {
+        "tool": "search_logs",
+        "params": {
+          "query": "all activity on finance-ws-07 around 2026-10-28 19:00",
+          "entity": "finance-ws-07"
+        },
+        "result": "15 log lines retrieved",
+        "iteration": 3
+      },
+      {
+        "tool": "search_logs",
+        "params": {
+          "query": "finance-ws-07 jdoe Administrators group"
+        },
+        "result": "15 log lines retrieved",
+        "iteration": 4
+      }
+    ],
+    "confidence": 0.9
+  }
+]

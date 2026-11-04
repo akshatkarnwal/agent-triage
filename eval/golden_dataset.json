@@ -8,7 +8,8 @@
       "Successful login as svc-deploy at 03:14:02 UTC",
       "203.0.113.45 has no prior connection history with web-prod-02",
       "svc-deploy account has password auth enabled despite policy requiring key-only"
-    ]
+    ],
+    "expected_verdict": "compromise_confirmed"
   },
   {
     "id": "inc-002",
@@ -19,7 +20,8 @@
       "db-replica-01 running replication service version with known unpatched CVE",
       "Port 5432 on db-replica-01 reachable from public internet per firewall logs",
       "No legitimate application on db-replica-01 issues DNS queries at this volume"
-    ]
+    ],
+    "expected_verdict": "compromise_confirmed"
   },
   {
     "id": "inc-003",
@@ -30,6 +32,7 @@
       "Phishing email with malicious macro opened by jdoe at 23:02",
       "jdoe has no history of after-hours administrative activity",
       "Scheduled task created and deleted within the same PowerShell session"
-    ]
+    ],
+    "expected_verdict": "compromise_confirmed"
   }
 ]

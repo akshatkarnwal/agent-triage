@@ -19,7 +19,7 @@ CREATE INDEX IF NOT EXISTS idx_logs_source_ip ON logs (source_ip);
 CREATE INDEX IF NOT EXISTS idx_logs_user_id ON logs (user_id);
 CREATE INDEX IF NOT EXISTS idx_logs_host ON logs (host);
 CREATE INDEX IF NOT EXISTS idx_logs_ts ON logs (ts);
-
--- Speeds up search_logs_node's similarity search
+-- Approximate nearest-neighbour index for search_logs_node (cosine distance).
+-- HNSW needs no training step, so it stays valid after the table is reloaded.
 CREATE INDEX IF NOT EXISTS idx_logs_embedding ON logs
-    USING ivfflat (embedding vector_cosine_ops) WITH (lists = 100);
+    USING hnsw (embedding vector_cosine_ops);
