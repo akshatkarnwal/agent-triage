@@ -120,7 +120,7 @@ Each case was run once before and once after the fixes described below.
 "Root cause" is a manual comparison of the report against the reference answer
 in the golden dataset, not an automated metric.
 
--------------------------------------------------------------------------------------------------------------------
+
 |             Case             |   Run  |          Tools used          | Faithfulness |   Relevancy  | Root cause |
 |------------------------------|--------|------------------------------|--------------|--------------|------------|
 | inc-001 SSH brute force      | before | search, correlate            | 0.86         | 0.74         | match      |
@@ -129,7 +129,7 @@ in the golden dataset, not an automated metric.
 | inc-002 DNS beaconing        | after  | search, correlate (3 events) | 0.87         | 0.72         | match      |
 | inc-003 privilege escalation | before | search x4, no correlate      | 0.94         | 0.65         | missed     |
 | inc-003 privilege escalation | after  | search, correlate (4 events) | 0.86         | 0.73         | match      |
--------------------------------------------------------------------------------------------------------------------
+
 
 The verdict label matched the expected one in all six runs. "Faithfulness" is
 scored on the evidence section only. "Not measured" means the relevancy judge
