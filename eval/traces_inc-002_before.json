@@ -1,0 +1,28 @@
+[
+  {
+    "id": "inc-002",
+    "iterations": 2,
+    "tool_calls": [
+      {
+        "tool": "search_logs",
+        "params": {
+          "query": "dns queries from host db-replica-01 with DGA-like patterns or high entropy domains",
+          "entity": "db-replica-01",
+          "time_window_minutes": 30
+        },
+        "result": "15 log lines retrieved",
+        "iteration": 1
+      },
+      {
+        "tool": "correlate",
+        "params": {
+          "entity": "db-replica-01",
+          "time_window_minutes": 30
+        },
+        "result": "1 correlated events for entity=db-replica-01 within 30m",
+        "iteration": 2
+      }
+    ],
+    "confidence": 0.95
+  }
+]

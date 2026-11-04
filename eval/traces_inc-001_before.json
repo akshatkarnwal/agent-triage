@@ -1,0 +1,27 @@
+[
+  {
+    "id": "inc-001",
+    "iterations": 2,
+    "tool_calls": [
+      {
+        "tool": "search_logs",
+        "params": {
+          "query": "event_type:ssh_login (result:failed OR result:success) AND src_ip:203.0.113.45 AND dest_host:web-prod-02",
+          "time_window_minutes": 30
+        },
+        "result": "14 log lines retrieved",
+        "iteration": 1
+      },
+      {
+        "tool": "correlate",
+        "params": {
+          "entity": "203.0.113.45",
+          "time_window_minutes": 30
+        },
+        "result": "2 correlated events for entity=203.0.113.45 within 30m",
+        "iteration": 2
+      }
+    ],
+    "confidence": 1.0
+  }
+]

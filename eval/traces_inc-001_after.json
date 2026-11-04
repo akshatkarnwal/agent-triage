@@ -1,0 +1,37 @@
+[
+  {
+    "id": "inc-001",
+    "iterations": 3,
+    "tool_calls": [
+      {
+        "tool": "search_logs",
+        "params": {
+          "query": "SSH login attempts from 203.0.113.45 to web-prod-02, including failed and successful events",
+          "entity": "web-prod-02",
+          "time_window_minutes": 60
+        },
+        "result": "14 log lines retrieved",
+        "iteration": 1
+      },
+      {
+        "tool": "search_logs",
+        "params": {
+          "query": "203.0.113.45 web-prod-02 SSH login",
+          "time_window_minutes": 60
+        },
+        "result": "14 log lines retrieved",
+        "iteration": 2
+      },
+      {
+        "tool": "correlate",
+        "params": {
+          "entity": "203.0.113.45",
+          "time_window_minutes": 60
+        },
+        "result": "2 correlated events for entity=203.0.113.45 within 60m",
+        "iteration": 3
+      }
+    ],
+    "confidence": 1.0
+  }
+]

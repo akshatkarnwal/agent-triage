@@ -1,0 +1,28 @@
+[
+  {
+    "id": "inc-003",
+    "iterations": 2,
+    "tool_calls": [
+      {
+        "tool": "search_logs",
+        "params": {
+          "query": "host:finance-ws-07 user:jdoe 'added to Administrators group' OR 'group membership change'",
+          "entity": "finance-ws-07",
+          "time_window_minutes": 60
+        },
+        "result": "15 log lines retrieved",
+        "iteration": 1
+      },
+      {
+        "tool": "correlate",
+        "params": {
+          "entity": "jdoe",
+          "time_window_minutes": 60
+        },
+        "result": "4 correlated events for entity=jdoe within 60m",
+        "iteration": 2
+      }
+    ],
+    "confidence": 1.0
+  }
+]

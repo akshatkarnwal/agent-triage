@@ -1,0 +1,28 @@
+[
+  {
+    "id": "inc-002",
+    "iterations": 2,
+    "tool_calls": [
+      {
+        "tool": "search_logs",
+        "params": {
+          "query": "outbound DNS queries from host db-replica-01 with DGA-like domains",
+          "entity": "db-replica-01",
+          "time_window_minutes": 60
+        },
+        "result": "3 log lines retrieved",
+        "iteration": 1
+      },
+      {
+        "tool": "correlate",
+        "params": {
+          "entity": "1106x9k2p.cdn-sync.example",
+          "time_window_minutes": 5760
+        },
+        "result": "0 correlated events for entity=1106x9k2p.cdn-sync.example within 5760m",
+        "iteration": 2
+      }
+    ],
+    "confidence": 0.95
+  }
+]

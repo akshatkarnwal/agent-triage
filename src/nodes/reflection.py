@@ -40,7 +40,13 @@ def reflection_node(state: AgentState) -> dict:
         result = {"sufficient": True, "confidence": 0.3, "reasoning": "parse failure, forcing stop"}
 
     # Route back to planner unless sufficient or out of budget
-    should_conclude = result["sufficient"] or state["iteration_count"] >= state["max_iterations"]
+    has_correlated = any(
+        c["tool"] == "correlate"
+        and "skipped" not in c["result"]
+        and not c["result"].startswith("0 correlated")
+        for c in state["tool_calls_made"]
+    )
+    should_conclude = (result["sufficient"] and has_correlated) or state["iteration_count"] >= state["max_iterations"]
 
     return {
         "confidence_score": result["confidence"],
